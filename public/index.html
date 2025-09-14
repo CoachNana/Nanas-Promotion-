@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Tides of Power — Tickets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600..900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://js.stripe.com">
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="/config.js"></script>
+  <style>
+    :root{
+      --gold:#d6b25e; --gold-2:#b9953e;
+      --ink:#e9eef8; --muted:#b8c7e6;
+      --bg:#0a0c12; --panel:#0d1018; --ring:rgba(255,255,255,.12);
+      --max:1080px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .top{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--ring);background:rgba(10,12,18,.75);backdrop-filter:blur(8px);position:sticky;top:0;z-index:10}
+    .brandname{font-family:"Playfair Display",serif;font-weight:800;font-size:22px;letter-spacing:.5px}
+    .muted{color:#9fb2d4;font-size:12px}
+    .hero{position:relative;isolation:isolate}
+    .hero img{width:100%;max-height:560px;object-fit:cover;display:block}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(10,12,18,.75) 60%,rgba(10,12,18,1));z-index:0;}
+    .hero .content{position:absolute;inset:0;display:grid;align-content:end;padding:20px;z-index:1}
+    .brand{font-family:"Playfair Display",serif;font-weight:800;font-size:40px;letter-spacing:.5px}
+    .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .pill{background:rgba(0,0,0,.45);border:1px solid var(--ring);color:#fff;padding:6px 10px;border-radius:999px;font-size:13px}
+    .cta{background:#0b1120cc;backdrop-filter:blur(8px);border-bottom:1px solid var(--ring)}
+    .cta .inner{display:flex;gap:10px;align-items:center;justify-content:center;padding:12px}
+    .tap{background:linear-gradient(180deg,var(--gold),var(--gold-2));border:0;color:#111;font-weight:900;padding:12px 18px;border-radius:12px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+    .tap:hover{filter:brightness(.98)}
+    h1{margin:18px 0 6px 0;text-align:center;font-family:"Playfair Display",serif;font-weight:800;font-size:34px}
+    .sub{color:var(--muted);text-align:center;margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--panel);border:1px solid var(--gold);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .row{display:flex;justify-content:space-between;align-items:center}
+    .title{font-family:"Playfair Display",serif;font-weight:800}
+    .price{font-weight:900;color:var(--gold)}
+    .perk{color:var(--muted);font-size:14px;margin:8px 0 12px 0}
+    .btn{background:linear-gradient(180deg,var(--gold),var(--gold-2));border:0;color:#111;font-weight:900;padding:12px;border-radius:12px;cursor:pointer;width:100%;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+    .btn:hover{filter:brightness(.98)}
+    .bank{background:var(--panel);border:1px solid var(--gold);border-radius:16px;padding:18px;margin-top:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .bank h3{margin:0 0 8px 0;font-family:"Playfair Display",serif;font-weight:800}
+    .bank pre{margin:0;background:#0a0f1e;border:1px solid var(--ring);padding:12px;border-radius:10px;overflow:auto;color:#e6e6e6}
+    footer{color:#94a3b8;text-align:center;padding:22px 0;border-top:1px solid var(--ring);margin-top:22px}
+    @media (max-width:960px){.grid{grid-template-columns:1fr}.brand{font-size:32px}}
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <img src="/assets/logo.jpg" alt="Nana’s Promotion Logo" height="36">
+    <div>
+      <div class="brandname">Nana’s Promotion</div>
+      <div class="muted">Tides of Power • World Islands, Dubai</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <img src="/assets/poster.jpg" alt="Event Poster">
+    <div class="content">
+      <div class="wrap">
+        <div class="brand">Tides of Power</div>
+        <div class="pillrow">
+          <span class="pill">Fight starts @ 5PM Sharp</span>
+          <span class="pill">Networking • Live DJ • VIP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="inner">
+      <button class="tap" onclick="document.getElementById('tickets').scrollIntoView({behavior:'smooth'})">
+        Tap to Pay (Visa / Mastercard / Apple Pay)
+      </button>
+    </div>
+  </div>
+
+  <main class="wrap" style="padding:20px 0 28px 0">
+    <h1 id="tickets">Choose Your Ticket</h1>
+    <div class="sub">A single tap takes you to secure payment.</div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="row"><span class="title">Regular+</span><span class="price">500 AED</span></div>
+        <div class="perk">3 complimentary cocktails / drinks</div>
+        <button class="btn" onclick="tapToPay('regular+',1)">Tap to Pay (Visa / Mastercard / Apple Pay)</button>
+      </div>
+      <div class="card">
+        <div class="row"><span class="title">Ringside VIP</span><span class="price">1,000 AED</span></div>
+        <div class="perk">Buffet + unlimited cocktails / drinks</div>
+        <button class="btn" onclick="tapToPay('vip',1)">Tap to Pay (Visa / Mastercard / Apple Pay)</button>
+      </div>
+      <div class="card">
+        <div class="row"><span class="title">VVIP Table (8)</span><span class="price">10,000 AED</span></div>
+        <div class="perk">3-course menu + unlimited beverages</div>
+        <button class="btn" onclick="tapToPay('vvip',1)">Reserve & Tap to Pay</button>
+      </div>
+    </div>
+
+    <div class="bank">
+      <h3>Bank Transfer Option</h3>
+      <pre>Account Name: MICHAEL_ADOMAKO
+Bank: HSBC_BANK
+IBAN: AE650200000070145446001
+SWIFT: HBMEAEAD</pre>
+      <div class="sub" style="margin-top:10px">
+        Please send proof of transfer via WhatsApp after payment.
+      </div>
+    </div>
+  </main>
+
+  <footer>© Nana’s Promotion • +971 58 563 4024</footer>
+
+<script>
+async function tapToPay(ticketType, qty){
+  const res = await fetch('/create-stripe-session', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ ticketType, qty })
+  });
+  const data = await res.json();
+  if(!res.ok || !data.id){ alert(data.error || 'Payment error'); return; }
+  const stripe = Stripe(window.STRIPE_PUBLISHABLE_KEY || '');
+  stripe.redirectToCheckout({ sessionId: data.id });
+}
+</script>
+</body>
+</html>
